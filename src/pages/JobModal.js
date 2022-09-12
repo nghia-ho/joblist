@@ -1,7 +1,6 @@
-import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import apiService from "../app/apiService";
 import { Modal } from "@mui/material";
 import * as React from "react";

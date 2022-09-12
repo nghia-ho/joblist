@@ -1,9 +1,8 @@
 import Modal from "@mui/material/Modal";
 import Form from "../components/Form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import JobModal from "../pages/JobModal";
 const style = {
   position: "absolute",
   top: "50%",
@@ -17,11 +16,9 @@ const style = {
 
 function LoginModal() {
   const navigate = useNavigate();
-  const { id } = JobModal;
   function handleClose(event) {
     event.preventDefault();
     navigate(-1);
-    console.log(id);
   }
 
   return (

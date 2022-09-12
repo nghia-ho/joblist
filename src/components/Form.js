@@ -11,7 +11,7 @@ import Box from "@mui/material/Box";
 import AuthContext from "../auth/AuthProvider";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Paper } from "@mui/material";
 const style = {
   bgcolor: "primary",
