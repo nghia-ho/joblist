@@ -1,60 +1,102 @@
 import { Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useRef, useEffect, useState } from "react";
 import apiService from "../app/apiService";
+import { Modal } from "@mui/material";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import Stack from "@mui/material/Stack";
+import Divider from "@mui/material/Divider";
+import Typography from "@mui/material/Typography";
 
-function JobModal(job) {
-  let navigate = useNavigate();
-  let { id } = useParams();
-  let buttonRef = useRef(null);
-  let jobDetail = getJob(id);
-  function onDismiss() {
-    navigate(-1);
-  }
+function JobModal() {
+  const id = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
+
+  const [open, setOpen] = useState(true);
+
+  const handleClose = () => {
+    setOpen(false);
+    navigate(-1, from, { replace: true });
+  };
   const [jobs, setJob] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const job = await apiService.get("/jobs");
-        setJob(job.data);
+        const data = await job.data;
+        const detailJob = data.find((item) => item.id === id.id);
+
+        setJob(detailJob);
       } catch (error) {
         console.log(error);
       }
     };
     fetchData();
-  }, []);
-
-  function getJob(id) {
-    jobs.find((job) => job.job.id === id);
-  }
+  }, [id]);
 
   return (
-    <Dialog
-      aria-labelledby="label"
-      onDismiss={onDismiss}
-      initialFocusRef={buttonRef}
+    <Modal
+      open={open}
+      onClose={handleClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
     >
-      <div
-        style={{
-          display: "grid",
-          justifyContent: "center",
-          padding: "8px 8px",
-        }}
+      <Box
+        display="flex"
+        alignItems="center"
+        flexDirection="column"
+        justifyContent="center"
+        height="100%"
       >
-        <h1 id="label" style={{ margin: 0 }}>
-          {jobDetail.title}
-        </h1>
-
-        <button
-          style={{ display: "block" }}
-          ref={buttonRef}
-          onClick={onDismiss}
+        <Box
+          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+          textAlign="center"
         >
-          Close
-        </button>
-      </div>
-    </Dialog>
+          <Box sx={{ my: 3, mx: 2 }}>
+            <Grid container alignItems="center">
+              <Grid item xs>
+                <Typography gutterBottom variant="h5" component="div">
+                  {jobs?.title}
+                </Typography>
+              </Grid>
+              <Grid item></Grid>
+            </Grid>
+            <Divider variant="middle" />
+            <Typography color="text.secondary" variant="body2">
+              {jobs?.description?.length > 400
+                ? `${jobs?.description?.slice(0, 200)}...`
+                : jobs?.description}
+            </Typography>
+          </Box>
+
+          <Box sx={{ m: 2 }}>
+            <Typography gutterBottom variant="body1">
+              Skills
+            </Typography>
+            <Stack direction="row" spacing={1}>
+              {jobs?.skills?.slice(0, 4).map((job, index) => (
+                <Chip label={job} color="error" key={index} />
+              ))}
+            </Stack>
+          </Box>
+          <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
+            <Typography gutterBottom variant="body1">
+              City: {jobs?.city}
+            </Typography>
+            <Button onClick={handleClose} color="warning" variant="contained">
+              Back
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </Modal>
   );
 }
 

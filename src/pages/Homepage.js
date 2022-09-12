@@ -3,16 +3,14 @@ import apiService from "../app/apiService";
 import JobCard from "../components/JobCard";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
-import { Link, useLocation } from "react-router-dom";
 function HomePage() {
-  const [jobs, setJob] = useState(null);
-  let location = useLocation();
+  const [jobs, setJob] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const job = await apiService.get("/jobs");
-        setJob(job.data.slice(0, 5));
+        setJob(job.data);
       } catch (error) {
         console.log(error);
       }

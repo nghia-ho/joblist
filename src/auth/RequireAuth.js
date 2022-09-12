@@ -1,8 +1,9 @@
 import { Navigate, useLocation } from "react-router-dom";
-import useAuth from "./AuthProvider";
+import * as React from "react";
+import AuthContext from "./AuthProvider";
 
 function RequireAuth({ children }) {
-  let auth = useAuth();
+  let auth = React.useContext(AuthContext);
   let location = useLocation();
 
   if (!auth.user) {
@@ -11,4 +12,5 @@ function RequireAuth({ children }) {
 
   return children;
 }
+
 export default RequireAuth;

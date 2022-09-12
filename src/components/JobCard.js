@@ -30,7 +30,7 @@ export default function MiddleDividers(job) {
               <Grid item xs>
                 <Typography
                   gutterBottom
-                  variant="body1 "
+                  variant="body1"
                   align="center"
                   component="div"
                 >

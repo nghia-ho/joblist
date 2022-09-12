@@ -10,7 +10,7 @@ import Menu from "@mui/material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
 import AuthContext from "../auth/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -94,15 +94,17 @@ export default function PrimarySearchAppBar() {
           display="flex"
           alignItems="center"
         >
-          <IconButton
-            size="large"
-            color="inherit"
-            onClick={() => {
-              auth.signin("username");
-            }}
-          >
-            <LoginIcon />
-          </IconButton>
+          <Link to="/login">
+            <IconButton
+              size="large"
+              color="inherit"
+              onClick={() => {
+                auth.signin(true);
+              }}
+            >
+              <LoginIcon />
+            </IconButton>
+          </Link>
           <Typography
             variant="body1"
             noWrap
@@ -127,7 +129,7 @@ export default function PrimarySearchAppBar() {
           component="div"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          Wellcome {auth.user}
+          Wellcome
         </Typography>
         <IconButton
           size="large"
@@ -168,6 +170,7 @@ export default function PrimarySearchAppBar() {
           >
             Job Router
           </Typography>
+
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
