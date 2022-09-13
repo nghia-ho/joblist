@@ -23,6 +23,7 @@ function JobModal() {
   const handleClose = () => {
     setOpen(false);
     navigate(from, { replace: true });
+    // navigate(-1);
   };
   const [jobs, setJob] = useState(null);
   useEffect(() => {
@@ -55,20 +56,31 @@ function JobModal() {
         height="100%"
       >
         <Box
-          sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}
+          sx={{
+            width: "100%",
+            maxWidth: 400,
+            bgcolor: "#F6E7D8",
+            borderRadius: "15px",
+            border: "1px solid #874356",
+          }}
           textAlign="center"
         >
           <Box sx={{ my: 3, mx: 2 }}>
             <Grid container alignItems="center">
               <Grid item xs>
-                <Typography gutterBottom variant="h5" component="div">
+                <Typography
+                  gutterBottom
+                  variant="h5"
+                  component="div"
+                  color="#874356"
+                >
                   {jobs?.title}
                 </Typography>
               </Grid>
               <Grid item></Grid>
             </Grid>
             <Divider variant="middle" />
-            <Typography color="text.secondary" variant="body2">
+            <Typography color="#874356" variant="body2">
               {jobs?.description?.length > 400
                 ? `${jobs?.description?.slice(0, 200)}...`
                 : jobs?.description}
@@ -76,20 +88,20 @@ function JobModal() {
           </Box>
 
           <Box sx={{ m: 2 }}>
-            <Typography gutterBottom variant="body1">
-              Skills
+            <Typography gutterBottom variant="body1" color="#874356">
+              Skills:
             </Typography>
             <Stack direction="row" spacing={1}>
               {jobs?.skills?.slice(0, 4).map((job, index) => (
-                <Chip label={job} color="error" key={index} size="small" />
+                <Chip label={job} color="secondary" key={index} size="small" />
               ))}
             </Stack>
           </Box>
           <Box sx={{ mt: 3, ml: 1, mb: 1 }}>
-            <Typography gutterBottom variant="body1">
+            <Typography gutterBottom variant="body1" color="#874356">
               City: {jobs?.city}
             </Typography>
-            <Button onClick={handleClose} color="warning" variant="contained">
+            <Button onClick={handleClose} color="secondary" variant="contained">
               Back
             </Button>
           </Box>

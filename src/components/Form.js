@@ -39,6 +39,7 @@ function LoginForm() {
   };
   const handleLogin = () => {
     navigate(from, { replace: true });
+
     auth.signin(username);
   };
 

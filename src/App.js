@@ -23,14 +23,15 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <Routes location={state?.backgroundLocation || location}>
           <Route path="/" element={<Layout />}>
-            <Route path="login" element={<Layout />} />
-            <Route path="jobs/:id" element={<Layout />} />
+            <Route path="login" element={<LoginModal />} />
+            <Route path="jobs/:id" element={<JobModal />} />
           </Route>
         </Routes>
 
         {state && (
           <Routes>
             <Route path="login" element={<LoginModal />} />
+
             <Route
               path="jobs/:id"
               element={
