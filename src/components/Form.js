@@ -25,7 +25,7 @@ const style = {
 };
 
 function LoginForm() {
-  const [username] = useState("User");
+  const [username] = useState("honghia");
   const [password] = useState("123");
   const navigate = useNavigate();
   let location = useLocation();
@@ -38,9 +38,8 @@ function LoginForm() {
     event.preventDefault();
   };
   const handleLogin = () => {
-    navigate(-1, from, { replace: true });
-    auth.signin(true);
-    auth.user = username;
+    navigate(from, { replace: true });
+    auth.signin(username);
   };
 
   return (

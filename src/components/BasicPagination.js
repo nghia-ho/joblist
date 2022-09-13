@@ -17,7 +17,7 @@ export default function BasicPagination() {
     >
       <Grid item xs={3}>
         <Stack spacing={2}>
-          <Pagination count={3} selected={true} />
+          <Pagination count={3} />
         </Stack>
       </Grid>
     </Grid>

@@ -22,7 +22,7 @@ function JobModal() {
 
   const handleClose = () => {
     setOpen(false);
-    navigate(-1, from, { replace: true });
+    navigate(from, { replace: true });
   };
   const [jobs, setJob] = useState(null);
   useEffect(() => {
@@ -81,7 +81,7 @@ function JobModal() {
             </Typography>
             <Stack direction="row" spacing={1}>
               {jobs?.skills?.slice(0, 4).map((job, index) => (
-                <Chip label={job} color="error" key={index} />
+                <Chip label={job} color="error" key={index} size="small" />
               ))}
             </Stack>
           </Box>

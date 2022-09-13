@@ -10,7 +10,12 @@ import Menu from "@mui/material/Menu";
 import LoginIcon from "@mui/icons-material/Login";
 import SearchIcon from "@mui/icons-material/Search";
 import AuthContext from "../auth/AuthProvider";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -82,10 +87,11 @@ export default function PrimarySearchAppBar() {
   function useAuth() {
     return React.useContext(AuthContext);
   }
-
+  // Auth user
   function AuthStatus() {
     let auth = useAuth();
     let navigate = useNavigate();
+    let location = useLocation();
 
     if (!auth.user) {
       return (
@@ -94,7 +100,7 @@ export default function PrimarySearchAppBar() {
           display="flex"
           alignItems="center"
         >
-          <Link to="/login">
+          <Link to="/login" state={{ backgroundLocation: location }}>
             <IconButton
               size="large"
               color="inherit"
@@ -129,8 +135,9 @@ export default function PrimarySearchAppBar() {
           component="div"
           sx={{ display: { xs: "none", sm: "block" } }}
         >
-          Wellcome
+          {auth.user === true ? `` : `Welcome ${auth.user}`}
         </Typography>
+
         <IconButton
           size="large"
           color="inherit"
@@ -151,6 +158,9 @@ export default function PrimarySearchAppBar() {
       </Box>
     );
   }
+  // Search param
+  let [searchParams, setSearchParams] = useSearchParams();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -178,6 +188,15 @@ export default function PrimarySearchAppBar() {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
+              value={searchParams.get("filter") || ""}
+              onChange={(event) => {
+                let filter = event.target.value;
+                if (filter) {
+                  setSearchParams({ filter });
+                } else {
+                  setSearchParams({});
+                }
+              }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />

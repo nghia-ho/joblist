@@ -23,14 +23,13 @@ function App() {
       <ThemeProvider theme={darkTheme}>
         <Routes location={state?.backgroundLocation || location}>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Layout />} />
-            <Route path="login" element={<LoginModal />} />
-            <Route path=":id" element={<JobModal />} />
+            <Route path="login" element={<Layout />} />
+            <Route path="jobs/:id" element={<Layout />} />
           </Route>
         </Routes>
 
-        <Routes>
-          <Route>
+        {state && (
+          <Routes>
             <Route path="login" element={<LoginModal />} />
             <Route
               path="jobs/:id"
@@ -40,9 +39,8 @@ function App() {
                 </RequireAuth>
               }
             />
-          </Route>
-        </Routes>
-
+          </Routes>
+        )}
         <BasicPagination />
       </ThemeProvider>
     </AuthProvider>
