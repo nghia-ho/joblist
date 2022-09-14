@@ -39,7 +39,7 @@ function JobModal() {
       }
     };
     fetchData();
-  }, [id]);
+  }, [id.id]);
 
   return (
     <Modal
